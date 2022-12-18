@@ -1,0 +1,11 @@
+custom-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 5px;
+    border: solid 1px #FFD52A;
+    border-radius: 3px;
+    min-width: 100px;
+    min-height: 35px;
+    user-select: none;
+}

@@ -8,7 +8,7 @@
     @foreach (var slot in _slots.Select((x, i) => (name: x, i)))
     {
         <grid-menu>
-            <custom-button tabindex="@slot.i" @onclick="(()=>_navigation.NavigateTo(GetLink(slot.i)))">
+            <custom-button tabindex="@slot.i" @onclick="(()=>OnClick(slot.i))">
                 @slot.name
             </custom-button>
         </grid-menu>
@@ -21,5 +21,12 @@
     protected override void OnInitialized()
     {
         _slots = Preferences.Get("Slots", String.Join('|', Enumerable.Repeat("empty", 20))).Split('|');
+    }
+    private void OnClick(int i)
+    {
+        _navigation.NavigateTo(GetLink(i));
+        #if ANDROID
+        Vibration.Vibrate(TimeSpan.FromMilliseconds(100));
+        #endif
     }
 }

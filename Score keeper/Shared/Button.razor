@@ -1,0 +1,15 @@
+﻿@using System.Text.Json;
+<custom-button tabindex="0" @onclick="(()=>OnClick.InvokeAsync())">
+    @Title
+</custom-button>
+@code {
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    protected override void OnInitialized()
+    {
+    }
+}

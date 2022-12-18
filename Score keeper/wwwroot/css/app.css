@@ -25,6 +25,11 @@ html, body {
         background: #FFD52A;
     }
 
+center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 h1:focus {
     outline: none;
 }

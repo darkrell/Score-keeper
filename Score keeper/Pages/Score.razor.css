@@ -1,0 +1,129 @@
+custom-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 5px;
+    border: solid 1px #FFD52A;
+    border-radius: 3px;
+    min-width: 100px;
+    min-height: 50px;
+    user-select: none;
+}
+
+space {
+    height: max-content;
+}
+
+score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 5px;
+    border: solid 1px #FFD52A;
+    background: #FFD52A;
+    color: #212121;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 100px;
+    user-select: none;
+}
+
+grid-title {
+    background: #212121;
+    position: fixed;
+    inset: 0 0 auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+flex {
+    display: flex;
+    justify-content: center;
+}
+
+main-container {
+    display: flex;
+    height: 100vh;
+    align-items: flex-end;
+    padding-bottom: 100px;
+}
+
+score-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit {
+    font-size: 32px;
+    position: fixed;
+    inset: auto 5px 25px auto;
+}
+
+.return {
+    font-size: 32px;
+    position: fixed;
+    inset: auto auto 25px 5px;
+    z-index: 100;
+}
+
+edit-popup {
+    background: #212121;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-input:focus {
+    border: solid 1px #FFD52A;
+    border-radius: 9px;
+}
+
+.name-input {
+    background-color: #121212;
+    color: #999999;
+    border: solid 1px #FFD52A;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.number-input:focus {
+    border: solid 1px #FFD52A;
+    border-radius: 9px;
+}
+
+.number-input {
+    background-color: #121212;
+    color: #999999;
+    border: solid 1px #FFD52A;
+    border-radius: 3px;
+    width: 100px;
+    margin: 5px;
+}
+
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #FFD52A;
+    cursor: pointer;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #999999;
+    outline: none;
+    height: 10px;
+    opacity: 0.7;
+    border-radius: 5px;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin: 3px;
+}

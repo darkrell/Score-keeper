@@ -1,0 +1,116 @@
+﻿@page "/score/{Id:int}"
+@using System.Text.Json;
+@using Score_keeper.Data;
+@inject NavigationManager _navigation;
+
+<grid-title>
+    <h1>@_scorePageModel.Name</h1>
+</grid-title>
+<space></space>
+<main-container>
+    @foreach (var i in Enumerable.Range(0, _scorePageModel.PlayersCount))
+    {
+        <score-wrapper style="filter: hue-rotate(@(i*228)deg);">
+            <flex><h1>P @i</h1></flex>
+            <custom-button @onclick="(()=>ChangeScore(i,_scorePageModel.ScoreHightChangeValue))" tabindex="@(i*4)">+@_scorePageModel.ScoreHightChangeValue</custom-button>
+            <custom-button @onclick="(()=>ChangeScore(i,_scorePageModel.ScoreChangeValue))" tabindex="@((i*4) +1)">+@_scorePageModel.ScoreChangeValue</custom-button>
+            <score>
+                @_scorePageModel.Scores[i]
+            </score>
+            <custom-button @onclick="(()=>ChangeScore(i,-1*_scorePageModel.ScoreChangeValue))" tabindex="@((i*4) +2)">-@_scorePageModel.ScoreChangeValue</custom-button>
+            <custom-button @onclick="(()=>ChangeScore(i,-1*_scorePageModel.ScoreHightChangeValue))" tabindex="@((i*4) +3)">-@_scorePageModel.ScoreHightChangeValue</custom-button>
+
+        </score-wrapper>
+    }
+</main-container>
+
+@if (!_editPopupVisible)
+{
+    <span class="oi oi-pencil edit" @onclick="Edit"></span>
+}
+<span class="oi oi-arrow-left return" @onclick="Return"></span>
+
+<edit-popup style="visibility:@(_editPopupVisible?"visible":"hidden")">
+    <input type="text" class="name-input" @bind-value="_scorePageModel.Name">
+    <div>Players: @_scorePageModel.PlayersCount </div>
+    <input type="range" class="slider" min="1" max="10" @bind-value="_scorePageModel.PlayersCount" @oninput="OnPlayersInput" id="players">
+    <br />
+    <div>Changing the score by</div>
+    <input type="number" class="number-input" @bind-value="_scorePageModel.ScoreHightChangeValue">
+    <input type="number" class="number-input" @bind-value="_scorePageModel.ScoreChangeValue">
+    <br />
+    <Button Title="Clear data" OnClick="Clear" />
+    <br />
+
+    <Button Title="Save" OnClick="SaveWithTableOfContents" />
+</edit-popup>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ScorePageModel _scorePageModel = null!;
+    private bool _editPopupVisible;
+
+    protected override void OnInitialized()
+    {
+        var slot = Preferences.Get($"Slot-{Id}", null);
+        if (slot == null)
+        {
+            _scorePageModel = new();
+            _editPopupVisible = true;
+        }
+        else
+        {
+            _scorePageModel = JsonSerializer.Deserialize<ScorePageModel>(slot);
+        }
+    }
+    private void Clear()
+    {
+#if ANDROID
+    Vibration.Vibrate(TimeSpan.FromMilliseconds(300));
+#endif
+        _scorePageModel = new();
+        Save();
+    }
+    private void ChangeScore(int id, int value)
+    {
+#if ANDROID
+    Vibration.Vibrate(TimeSpan.FromMilliseconds(60));
+#endif
+        _scorePageModel.Scores[id] += value;
+        Save();
+    }
+    private void OnPlayersInput(ChangeEventArgs value)
+    {
+#if ANDROID
+    Vibration.Vibrate(TimeSpan.FromMilliseconds(30));
+#endif
+        _scorePageModel.PlayersCount = int.Parse(value.Value + "");
+    }
+    private void Return()
+    {
+#if ANDROID
+    Vibration.Vibrate(TimeSpan.FromMilliseconds(100));
+#endif
+        _navigation.NavigateTo("");
+    }
+    private void Edit()
+    {
+#if ANDROID
+    Vibration.Vibrate(TimeSpan.FromMilliseconds(100));
+#endif
+        _editPopupVisible = true;
+    }
+    private void SaveWithTableOfContents()
+    {
+        _editPopupVisible = false;
+        var slots = Preferences.Get("Slots", String.Join('|', Enumerable.Repeat("empty", 20))).Split('|');
+        slots[Id] = _scorePageModel.Name;
+        Preferences.Set("Slots", String.Join('|', slots));
+        Save();
+    }
+    private void Save()
+    {
+        Preferences.Set($"Slot-{Id}", JsonSerializer.Serialize(_scorePageModel));
+    }
+}
