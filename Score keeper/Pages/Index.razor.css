@@ -1,0 +1,35 @@
+grid {
+    width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto 300px auto;
+    grid-template-rows: 40vh repeat(21, 65px);
+}
+
+grid-title {
+    background: #212121;
+    position: fixed;
+    inset: 0 0 auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+grid-menu {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+custom-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 5px;
+    border: solid 1px #FFD52A;
+    border-radius: 3px;
+    width: 95%;
+    height: 85%;
+    user-select: none;
+}

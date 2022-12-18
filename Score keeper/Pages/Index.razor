@@ -1,7 +1,25 @@
 ﻿@page "/"
+@using System.Text.Json;
+@inject NavigationManager _navigation;
 
-<h1>Hello, world!</h1>
+<grid>
+    <grid-title><h1>SLOTS</h1></grid-title>
+    <grid-menu></grid-menu>
+    @foreach (var slot in _slots.Select((x, i) => (name: x, i)))
+    {
+        <grid-menu>
+            <custom-button tabindex="@slot.i" @onclick="(()=>_navigation.NavigateTo(GetLink(slot.i)))">
+                @slot.name
+            </custom-button>
+        </grid-menu>
+    }
+</grid>
+@code {
+    private string[] _slots = null!;
+    string GetLink(int i) => $"score/{i}";
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override void OnInitialized()
+    {
+        _slots = Preferences.Get("Slots", String.Join('|', Enumerable.Repeat("empty", 20))).Split('|');
+    }
+}

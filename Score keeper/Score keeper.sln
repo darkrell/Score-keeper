@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Score keeper", "Score keeper.csproj", "{4334F96E-C8A7-495F-A615-2FA49A9F6731}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScoreKeeper", "ScoreKeeper.csproj", "{4334F96E-C8A7-495F-A615-2FA49A9F6731}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
